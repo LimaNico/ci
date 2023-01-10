@@ -37,8 +37,12 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Login::index');
 $routes->get('/login','Login::index');
+$routes->post('/login/index','Login::index');
+$routes->post('/mitglieder/index','Mitglieder::index');
 $routes->get('/aktuellesProjekt','AktuellesProjekt::index');
 $routes->get('/mitglieder','Mitglieder::index');
+$routes->get('/mitglieder/ced_Mitglieder/(:num)/(:num)','Mitglieder::ced_Mitglieder/$1/$2');
+$routes->post('/mitglieder/submit_edit','Mitglieder::submit_edit');
 $routes->get('/reiter','Reiter::index');
 $routes->get('/aufgaben','Aufgaben::index');
 $routes->get('/projekte','Projekte::index');
