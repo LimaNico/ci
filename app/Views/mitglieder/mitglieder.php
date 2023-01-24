@@ -36,7 +36,7 @@
         <div>
             <?php
             helper('form');
-            echo form_open('mitglieder/submit_edit',[],['todo'=>$todo]);
+            echo form_open('mitglieder/submit_ced',[],['todo'=>$todo]);
             if ($todo > 0)
             {
                 echo form_hidden('mitgliederID',$selectedMitglied['mitgliederID']);
@@ -57,7 +57,7 @@
                 <label class="mt-3" for="passwort">Passwort:</label>
                 <input class="form-control" type="text" name="passwort" placeholder="Passwort" <?php
                 $session = session();
-                echo ($selectedMitglied['mitgliederID']==$session->get('userID') && $todo != 2) ? '' : 'disabled';
+                echo (($selectedMitglied['mitgliederID']==$session->get('userID') && $todo != 2) || $todo == 0 ) ? '' : 'disabled';
                 ?>>
                 <input class="mt-3" type="checkbox" id="projektZugeordnet">
                 <label for="projektZugeordnet">Dem Projekt zugeordnet</label>

@@ -33,7 +33,7 @@ class Mitglieder extends BaseController
         //return view('templates/header',$data).view('mitglieder/edit',$data).view('templates/footer');
     }
 
-    public function submit_edit()
+    public function submit_ced()
     {
         $model = model(MitgliederModel::class);
 

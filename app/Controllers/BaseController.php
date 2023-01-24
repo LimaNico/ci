@@ -46,6 +46,7 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
+        $this->validation = \Config\Services::validation();
 
         $this->session = \Config\Services::session();
     }
