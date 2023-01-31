@@ -15,6 +15,10 @@ class Projekte extends BaseController
         return view('templates/header', $data). view('templates/sidebar',$data) . view('projekte/projekte', $data) . view('templates/footer');
     }
 
+    public function delete($id){
+
+    }
+
     public function ced_Projekte()
     {
 

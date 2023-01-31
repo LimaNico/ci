@@ -16,4 +16,38 @@
     <header class='bg-light  mt-3 mb-3 p-5 text-center'>
         <h1>Aufgabenplaner: <?php echo $title ?></h1>
     </header>
-    <div class="row">
+    <?php
+    if ($title != "Login"){
+        echo "
+        <div class='row'>
+        <nav class='navbar navbar-expand-lg bg-body-tertiary'>
+            <div class='container-fluid'>
+                <a class='navbar-brand' href='".site_url('/login/logout')."'>Logout</a>
+                <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNavDropdown' aria-controls='navbarNavDropdown' aria-expanded='false' aria-label='Toggle navigation'>
+                    <span class='navbar-toggler-icon'></span>
+                </button>
+                <div class='collapse navbar-collapse' id='navbarNavDropdown'>
+                    <ul class='navbar-nav'>
+                        <li class='nav-item'>
+                            <a class='nav-link active' aria-current='page' href='".site_url('/projekte')."'>Projekte</a>
+                        </li>";
+        if (!empty(session()->get('projektID'))){
+            echo "
+            <li class='nav-item dropdown'>
+                            <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+            Aktuelles Projekt</a>
+                            <ul class='dropdown-menu'>
+                                <li><a class='dropdown-item' href='". site_url('/aktuellesProjekt/')."'>Projektübersicht</a></li>
+                                <li><hr class='dropdown-divider'></li>
+                                <li><a class='dropdown-item' href='". site_url('/reiter/')."'>Reiter</a></li>
+                                <li><a class='dropdown-item' href='". site_url('/aufgaben/')."'>Aufgaben</a></li>
+                                <li><a class='dropdown-item' href='". site_url('/mitglieder/')."'>Mitglieder</a></li>
+                            </ul>";}
+    }?>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+

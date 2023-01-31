@@ -22,12 +22,48 @@
                         </td>
                         <td>
                             <a href=" . site_url('mitglieder/ced_Mitglieder/'.$mitglied['mitgliederID'].'/1/') . " class='btn text-dark'><i class='fa-regular fa-pen-to-square'></i></a>
-                            <a href=". site_url('mitglieder/ced_Mitglieder/'.$mitglied['mitgliederID'].'/2/')." class='btn text-dark'><i class='fa-regular fa-trash-can'></i></a>
+                            
+                            <a
+                            class='text-dark'
+                            role='button'
+                            data-bs-toggle='modal'
+                            data-bs-target='#löschBestätigung'
+                            data-bs-username='". $mitglied['username']."'
+                            data-bs-delete-link='". site_url('mitglieder/ced_Mitglieder/'.$mitglied['mitgliederID'].'/2/')."'><i class='fa-regular fa-trash-can'></i></a>
                         </td>
                        </tr>";
             }
             ?>
+            <div class="modal fade" id="löschBestätigung" tabindex="-1" aria-labelledby="löschBestätigungLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="löschBestätigungLabel">Mitglied löschen?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Soll das Mitglied gelöscht werden?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-bs-dismiss="modal">Abbrechen</button>
+                            <a id="deleteBtn" type="button" class="btn btn-danger" >Bestätigen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript" defer>
+                const deleteModal = document.getElementById('löschBestätigung')
+                deleteModal.addEventListener('show.bs.modal', event => {
+                    const button = event.relatedTarget;
+                    const username = button.getAttribute('data-bs-username');
+                    const del_link = button.getAttribute('data-bs-delete-link');
+                    const modalText = deleteModal.querySelector('.modal-body p');
+                    const deleteBtn = deleteModal.querySelector('#deleteBtn');
 
+                    modalText.textContent = `Soll das Mitglied gelöscht werden?`;
+                    deleteBtn.setAttribute("href", del_link);
+                });
+            </script>
             </tbody>
         </table>
     </div>
@@ -37,7 +73,7 @@
             <?php
             helper('form');
             echo form_open('mitglieder/submit_ced',[],['todo'=>$todo]);
-            if ($todo > 0)
+            if ($todo > 0 && $todo!=2)
             {
                 echo form_hidden('mitgliederID',$selectedMitglied['mitgliederID']);
             }

@@ -26,14 +26,19 @@ class Aufgaben extends BaseController
     public function ced_Aufgaben($id = 0, $todo = 0)
     {
         $model = model(AufgabenModel::class);
-        $data['aufgaben'] = $model->getAufgaben(session()->get('projektID'));
+
         $data['title'] = 'Aufgaben';
         $data['aufgabenzuweisung'] = $model->getZuweisungen(session()->get('projektID'));
         $data['mitglieder'] = model(MitgliederModel::class)->getMitglieder();
         $data['reiter'] = model(ReiterModel::class)->getReiter(session()->get('projektID'));
         $data['zuweisungID'] = model(AufgabenModel::class)->getZuweisungenID(session()->get('projektID'));
         // Create = 0; Edit = 1; Delete = 2
+        if ($todo==2){
+            $model->delete($id);
+            $todo=0;
+        }
         $data['todo'] = $todo;
+        $data['aufgaben'] = $model->getAufgaben(session()->get('projektID'));
         if ($id>0 && ($todo == 1 || $todo == 2))
         {
             $data['selectedAufgabe'] = model(AufgabenModel::class)->getAufgabe($id);

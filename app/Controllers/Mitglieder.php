@@ -20,11 +20,17 @@ class Mitglieder extends BaseController
     public function ced_Mitglieder($id = 0, $todo = 0)
     {
         $model = model(MitgliederModel::class);
-        $data['mitglieder'] = $model->getMitglieder();
+
         $data['title'] = 'Mitglieder';
         // Create = 0; Edit = 1; Delete = 2
+
+        if ($todo==2){
+            $model->delete($id);
+            $todo=0;
+        }
         $data['todo'] = $todo;
-        if ($id>0 && ($todo == 1 || $todo == 2))
+        $data['mitglieder'] = $model->getMitglieder();
+        if ($id>0 && $todo == 1)
         {
             $data['selectedMitglied'] = model(MitgliederModel::class)->getMitglied($id);
         }
